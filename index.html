@@ -183,28 +183,23 @@
 
 <script>
 var fireballSize = 22;
-var getFireballSpeed = speedOfTheFireball;
+var getFireballSpeed = function (left) {
+  return left ? 5 : 2;
+}
+
 var wizardSpeed = 3;
 var wizardWidth = 70;
-var getWizardHeight = 1.337 * wizardWidth;
-
-function speedOfTheFireball(left) {
-  if (left ==== true) {
-    return 5;
-  } else if (left === false) {
-    return 2;
-  } else {
-    alert('Неверное значения направления полета фаербола!');
-  }
+var getWizardHeight = function(width) {
+  return 1.337 * width;
 }
 
 function getWizardX(width) {
-  x = width / 2;
+  x = width / 2 - 0.5 * wizardWidth;
   return x;
 }
 
 function getWizardY(height) {
-  y = height * 2 / 3;
+  y = height / 3 - getWizardHeight(wizardWidth);
   return y;
 }
 </script>
