@@ -41,9 +41,17 @@ var getObjectField = function (toBeAssigned, random) { // функция по и
   }
 };
 
+console.log(getObjectField(dataToBeAssigned, randomData));
+
 // eslint-disable-next-line no-unused-vars
 var getWizard = function (data) { // функция берет данные и пишут их в массив
   for (var i = 0; i < data.length; i++) {
-    data.push = '{ ' + getObjectField(dataToBeAssigned, randomData) + ' }, '; // data[i].push
+    data[i] = '{ ' + getObjectField(dataToBeAssigned, randomData) + ' }, ';
   }
 };
+
+getWizard(wizardData);
+
+console.log(wizardData);
+
+console.log(dataToBeAssigned);
