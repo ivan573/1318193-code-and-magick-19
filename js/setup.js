@@ -18,25 +18,21 @@ var getFullName = function () {
   return name;
 };
 
-var getCoatColor = function () {
-  var color = randomData.colorsOfCoat[Math.floor(Math.random() * randomData.colorsOfCoat.length)];
-  return color;
-};
-
-var getEyesColor = function () {
-  var color = randomData.colorsOfEyes[Math.floor(Math.random() * randomData.colorsOfEyes.length)];
+var getColor = function (array) {
+  var color = array[Math.floor(Math.random() * array.length)];
   return color;
 };
 
 var getWizard = function () {
   return {
     name: getFullName(),
-    coatColor: getCoatColor(),
-    eyesColor: getEyesColor()
+    coatColor: getColor(randomData.colorsOfCoat),
+    eyesColor: getColor(randomData.colorsOfEyes)
   };
 };
 
-for (i = 0; i < wizardData.length; i++) {
+
+for (var i = 0; i < wizardData.length; i++) {
   wizardData[i] = getWizard();
 }
 
@@ -54,9 +50,9 @@ var renderWizard = function (wizard) {
 
 var fragment = document.createDocumentFragment();
 
-for (var i = 0; i < wizardData.length; i++) {
-  fragment.appendChild(renderWizard(wizardData[i]));
-}
+wizardData.forEach(function (wizard) {
+  fragment.appendChild(renderWizard(wizard));
+});
 
 var similarListElement = userDialog.querySelector('.setup-similar-list');
 
