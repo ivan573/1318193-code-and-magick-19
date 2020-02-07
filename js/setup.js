@@ -1,7 +1,6 @@
 'use strict';
 
 var userDialog = document.querySelector('.setup');
-// userDialog.classList.remove('hidden');
 
 var wizardData = new Array(4);
 
@@ -64,18 +63,18 @@ userDialog.querySelector('.setup-similar').classList.remove('hidden');
 var ESC_KEY = 'Escape';
 var ENTER_KEY = 'Enter';
 
-var NAME_FIELD = document.querySelector('.setup-user-name');
-// var SAVE_BUTTON = document.querySelector('.setup-submit');
-var WIZARD_COAT = document.querySelector('.setup-wizard .wizard-coat');
-var WIZARD_EYES = document.querySelector('.setup-wizard .wizard-eyes');
-var WIZARD_FIREBALL = document.querySelector('.setup-fireball-wrap');
+var nameField = document.querySelector('.setup-user-name');
 
-// var setup = document.querySelector('.setup');
+var wizardCoat = document.querySelector('.setup-wizard .wizard-coat');
+var wizardEyes = document.querySelector('.setup-wizard .wizard-eyes');
+var wizardFireball = document.querySelector('.setup-fireball-wrap');
+var fireballColor = document.querySelector('.setup-fireball-wrap input');
+
 var setupOpen = document.querySelector('.setup-open');
 var setupClose = document.querySelector('.setup-close');
 
 var onPopupEscPress = function (evt) {
-  if (evt.key === ESC_KEY && document.activeElement !== NAME_FIELD) {
+  if (evt.key === ESC_KEY && document.activeElement !== nameField) {
     closePopup();
   }
 };
@@ -110,14 +109,16 @@ setupClose.addEventListener('keydown', function (evt) {
   }
 });
 
-WIZARD_COAT.addEventListener('click', function () {
-  WIZARD_COAT.style.fill = getColor(randomData.colorsOfCoat);
+wizardCoat.addEventListener('click', function () {
+  wizardCoat.style.fill = getColor(randomData.colorsOfCoat);
 });
 
-WIZARD_EYES.addEventListener('click', function () {
-  WIZARD_EYES.style.fill = getColor(randomData.colorsOfEyes);
+wizardEyes.addEventListener('click', function () {
+  wizardEyes.style.fill = getColor(randomData.colorsOfEyes);
 });
 
-WIZARD_FIREBALL.addEventListener('click', function () {
-  WIZARD_FIREBALL.style.background = getColor(randomData.colorsOfFireball);
+wizardFireball.addEventListener('click', function () {
+  var color = getColor(randomData.colorsOfFireball);
+  wizardFireball.style.background = color;
+  fireballColor.value = color;
 });
