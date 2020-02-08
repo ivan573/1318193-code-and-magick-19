@@ -66,7 +66,9 @@ var ENTER_KEY = 'Enter';
 var nameField = document.querySelector('.setup-user-name');
 
 var wizardCoat = document.querySelector('.setup-wizard .wizard-coat');
+var coatColor = document.querySelector('[name="coat-color"]');
 var wizardEyes = document.querySelector('.setup-wizard .wizard-eyes');
+var eyesColor = document.querySelector('[name="eyes-color"]');
 var wizardFireball = document.querySelector('.setup-fireball-wrap');
 var fireballColor = document.querySelector('.setup-fireball-wrap input');
 
@@ -110,11 +112,15 @@ setupClose.addEventListener('keydown', function (evt) {
 });
 
 wizardCoat.addEventListener('click', function () {
-  wizardCoat.style.fill = getColor(randomData.colorsOfCoat);
+  var color = getColor(randomData.colorsOfCoat);
+  wizardCoat.style.fill = color;
+  coatColor.value = color;
 });
 
 wizardEyes.addEventListener('click', function () {
-  wizardEyes.style.fill = getColor(randomData.colorsOfEyes);
+  var color = getColor(randomData.colorsOfEyes);
+  wizardEyes.style.fill = color;
+  eyesColor.value = color;
 });
 
 wizardFireball.addEventListener('click', function () {
