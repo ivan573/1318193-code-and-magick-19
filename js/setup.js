@@ -86,11 +86,6 @@ var fireballColor = document.querySelector('.setup-fireball-wrap input');
 var setupOpen = document.querySelector('.setup-open');
 var setupClose = document.querySelector('.setup-close');
 
-var dialogLeft;
-var dialogTop;
-
-var openCounter = 0;
-
 var onPopupEscPress = function (evt) {
   if (evt.key === ESC_KEY && document.activeElement !== nameField) {
     closePopup();
@@ -100,20 +95,14 @@ var onPopupEscPress = function (evt) {
 var openPopup = function () {
   userDialog.classList.remove('hidden');
   document.addEventListener('keydown', onPopupEscPress);
-
-  if (openCounter < 1) {
-    dialogLeft = userDialog.getBoundingClientRect().left;
-    dialogTop = userDialog.getBoundingClientRect().top;
-    openCounter++;
-  }
-
-  userDialog.style.left = dialogLeft + 400 + 'px';
-  userDialog.style.top = dialogTop + 36 + 'px';
 };
 
 var closePopup = function () {
   userDialog.classList.add('hidden');
   document.removeEventListener('keydown', onPopupEscPress);
+
+  userDialog.style.left = '';
+  userDialog.style.top = '';
 };
 
 setupOpen.addEventListener('click', function () {
