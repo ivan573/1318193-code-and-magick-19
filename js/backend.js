@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 'use strict';
 
 (function () {
@@ -5,8 +6,11 @@
   window.backend = {
     load: function () {
       var xhr = new XMLHttpRequest();
+      var URL = 'https://js.dump.academy/code-and-magick/data';
 
-      xhr.addEventListener('load', function (url) {
+      console.log('Hello!');
+
+      xhr.addEventListener('load', function () {
         var data;
 
         if (xhr.status === 200) {
@@ -33,8 +37,13 @@
 
         xhr.timeout = 10000;
 
-        xhr.open('GET', url);
+        console.log(URL);
+
+        xhr.open('GET', URL);
         xhr.send();
+
+        console.log(data);
+        console.log('Hello again!');
 
         return data;
       });
@@ -44,7 +53,7 @@
     }
   };
 
-  // eslint-disable-next-line no-console
-  console.log(window.backend.load('https://js.dump.academy/code-and-magick/data'));
+  window.backend.load();
+
 
 })();
