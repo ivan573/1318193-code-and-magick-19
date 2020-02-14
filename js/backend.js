@@ -1,59 +1,65 @@
-/* eslint-disable no-console */
 'use strict';
 
 (function () {
 
   window.backend = {
-    load: function () {
+    load: function (onLoad, onError) {
       var xhr = new XMLHttpRequest();
       var URL = 'https://js.dump.academy/code-and-magick/data';
 
-      console.log('Hello!');
+      var data;
 
       xhr.addEventListener('load', function () {
-        var data;
 
         if (xhr.status === 200) {
           try {
-            data = JSON.parse(xhr.responseText);
+            onLoad(JSON.parse(xhr.responseText));
           } catch (err) {
-            throw new Error(err.message);
+            onError(err.message);
           }
         } else {
-          throw new Error('Ошибка ' + xhr.status + ': ' + getError(window.statusCodeList, xhr.status));
+          onError('Ошибка ' + xhr.status + ': ' + getError(window.statusCodeList, xhr.status));
         }
 
-        var getError = function (object, key) {
-          return object[key];
-        };
-
-        xhr.addEventListener('error', function () {
-          throw new Error('Произошла ошибка соединения');
-        });
-
-        xhr.addEventListener('timeout', function () {
-          throw new Error('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
-        });
-
-        xhr.timeout = 10000;
-
-        console.log(URL);
-
-        xhr.open('GET', URL);
-        xhr.send();
-
-        console.log(data);
-        console.log('Hello again!');
-
-        return data;
       });
-    },
-    save: function () {
 
+      xhr.addEventListener('error', function () {
+        onError('Произошла ошибка соединения');
+      });
+
+      xhr.addEventListener('timeout', function () {
+        onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
+      });
+
+      xhr.timeout = 10000;
+
+      xhr.open('GET', URL);
+      xhr.send();
+
+      return data;
+    },
+    save: function (data, onLoad, onError) {
+      var xhr = new XMLHttpRequest();
+      var URL = 'https://js.dump.academy/code-and-magick';
+
+      xhr.responseType = 'json';
+
+      xhr.addEventListener('load', function () {
+        if (xhr.status === 200) {
+          onLoad(xhr.response);
+        } else {
+          onError('Ошибка ' + xhr.status + ': ' + getError(window.statusCodeList, xhr.status));
+        }
+
+      });
+
+      xhr.open('POST', URL);
+      xhr.send(data);
     }
   };
 
-  window.backend.load();
-
+  var getError = function (object, key) {
+    return object[key];
+  };
 
 })();
