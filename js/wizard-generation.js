@@ -1,5 +1,3 @@
-// wizard-generation
-
 'use strict';
 
 (function () {
