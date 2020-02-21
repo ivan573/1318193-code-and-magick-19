@@ -12,28 +12,33 @@
   var similarWizardsElement = document.querySelector('.setup-similar-list');
 
   wizardCoat.addEventListener('click', function () {
-    var color = window.wizardGeneration.getColor(window.wizardGeneration.randomData.colorsOfCoat);
-    wizardCoat.style.fill = color;
-    coatColor.value = color;
+    setColor(window.wizardGeneration.randomData.colorsOfCoat, wizardCoat, coatColor, 'coat');
     displayNewSimilarWizards();
   });
 
   wizardEyes.addEventListener('click', function () {
-    var color = window.wizardGeneration.getColor(window.wizardGeneration.randomData.colorsOfEyes);
-    wizardEyes.style.fill = color;
-    eyesColor.value = color;
+    setColor(window.wizardGeneration.randomData.colorsOfEyes, wizardEyes, eyesColor, 'eyes');
     displayNewSimilarWizards();
   });
 
   wizardFireball.addEventListener('click', function () {
-    var color = window.wizardGeneration.getColor(window.wizardGeneration.randomData.colorsOfFireball);
-    wizardFireball.style.background = color;
-    fireballColor.value = color;
+    setColor(window.wizardGeneration.randomData.colorsOfFireball, wizardFireball, fireballColor, 'fireball');
   });
 
   var displayNewSimilarWizards = function () {
     similarWizardsElement.innerHTML = '';
     window.sortAndDisplay();
+  };
+
+  var setColor = function (colorsOfElement, wizardElement, elementColor, type) {
+    var color = window.wizardGeneration.getColor(colorsOfElement);
+    if (type === 'coat' || type === 'eyes') {
+      wizardElement.style.fill = color;
+    } else if (type === 'fireball') {
+      wizardElement.style.background = color;
+    }
+    wizardElement = color;
+    elementColor.value = color;
   };
 
 })();

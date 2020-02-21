@@ -2,28 +2,23 @@
 
 (function () {
 
-
-  var getCoatColor = function () {
-    var color = document.querySelector('[name="coat-color"]').value;
-    return color;
-  };
-  var getEyesColor = function () {
-    var color = document.querySelector('[name="eyes-color"]').value;
+  var getColor = function (selector) {
+    var color = document.querySelector(selector).value;
     return color;
   };
 
   var getRank = function (wizard) {
     var rank = 0;
-    if (wizard.colorCoat === getCoatColor()) {
+    if (wizard.colorCoat === getColor('[name="coat-color"]')) {
       rank += 2;
     }
-    if (wizard.colorEyes === getEyesColor()) {
+    if (wizard.colorEyes === getColor('[name="eyes-color"]')) {
       rank += 1;
     }
     return rank;
   };
 
-  window.sort = function (wizards) {
+  window.sortWizards = function (wizards) {
     var sortedWizards = wizards.slice().
       sort(function (a, b) {
         var rankDiff = getRank(b) - getRank(a);
