@@ -2,17 +2,22 @@
 
 (function () {
 
-  // тут я не уверен нарушение ли это приципа DRY. в player-creation.js есть переменные, которые элементы формы.
-  // то есть, их можно было бы вынести в глобальную область видимости и тут сделать window.playerCreation.coatColor.value.
-  var coatColor = document.querySelector('[name="coat-color"]').value;
-  var eyesColor = document.querySelector('[name="eyes-color"]').value;
+
+  var getCoatColor = function () {
+    var color = document.querySelector('[name="coat-color"]').value;
+    return color;
+  };
+  var getEyesColor = function () {
+    var color = document.querySelector('[name="eyes-color"]').value;
+    return color;
+  };
 
   var getRank = function (wizard) {
     var rank = 0;
-    if (wizard.colorCoat === coatColor) {
+    if (wizard.colorCoat === getCoatColor()) {
       rank += 2;
     }
-    if (wizard.colorEyes === eyesColor) {
+    if (wizard.colorEyes === getEyesColor()) {
       rank += 1;
     }
     return rank;
