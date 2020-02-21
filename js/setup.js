@@ -17,9 +17,34 @@
     return wizardElement;
   };
 
+  var wizardsFromServer;
+
   var onSuccess = function (data) {
+
+    wizardsFromServer = data;
+
+    // for (var i = 0; i < wizardData.length; i++) {
+    //   wizardData[i] = window.sort(data)[i];
+    // }
+
+    // var fragment = document.createDocumentFragment();
+
+    // wizardData.forEach(function (wizard) {
+    //   fragment.appendChild(renderWizard(wizard));
+    // });
+
+    // var similarListElement = window.userDialog.querySelector('.setup-similar-list');
+
+    // similarListElement.appendChild(fragment);
+
+    window.sortAndDisplay();
+
+    window.userDialog.querySelector('.setup-similar').classList.remove('hidden');
+  };
+
+  window.sortAndDisplay = function () {
     for (var i = 0; i < wizardData.length; i++) {
-      wizardData[i] = data[Math.floor(Math.random() * data.length)];
+      wizardData[i] = window.sort(wizardsFromServer)[i];
     }
 
     var fragment = document.createDocumentFragment();
@@ -31,9 +56,6 @@
     var similarListElement = window.userDialog.querySelector('.setup-similar-list');
 
     similarListElement.appendChild(fragment);
-
-    window.userDialog.querySelector('.setup-similar').classList.remove('hidden');
-
   };
 
   var onError = function (data) {
