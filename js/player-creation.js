@@ -13,15 +13,11 @@
 
   wizardCoat.addEventListener('click', function () {
     setColor(window.wizardGeneration.randomData.colorsOfCoat, wizardCoat, coatColor, 'coat');
-    var debounce = window.debounce(displayNewSimilarWizards);
     debounce();
-    // displayNewSimilarWizards();
   });
 
   wizardEyes.addEventListener('click', function () {
     setColor(window.wizardGeneration.randomData.colorsOfEyes, wizardEyes, eyesColor, 'eyes');
-    var debounce = window.debounce(displayNewSimilarWizards);
-    console.log(lala);
     debounce();
   });
 
@@ -33,6 +29,8 @@
     similarWizardsElement.innerHTML = '';
     window.sortAndDisplay();
   };
+
+  var debounce = window.debounce(displayNewSimilarWizards);
 
   var setColor = function (colorsOfElement, wizardElement, elementColor, type) {
     var color = window.wizardGeneration.getColor(colorsOfElement);
