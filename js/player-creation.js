@@ -13,12 +13,16 @@
 
   wizardCoat.addEventListener('click', function () {
     setColor(window.wizardGeneration.randomData.colorsOfCoat, wizardCoat, coatColor, 'coat');
-    displayNewSimilarWizards();
+    var debounce = window.debounce(displayNewSimilarWizards);
+    debounce();
+    // displayNewSimilarWizards();
   });
 
   wizardEyes.addEventListener('click', function () {
     setColor(window.wizardGeneration.randomData.colorsOfEyes, wizardEyes, eyesColor, 'eyes');
-    displayNewSimilarWizards();
+    var debounce = window.debounce(displayNewSimilarWizards);
+    console.log(lala);
+    debounce();
   });
 
   wizardFireball.addEventListener('click', function () {
