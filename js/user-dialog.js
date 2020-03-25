@@ -1,73 +1,101 @@
-// user-dialog
-
 'use strict';
 
-var ESC_KEY = 'Escape';
-var ENTER_KEY = 'Enter';
+(function () {
 
-var nameField = document.querySelector('.setup-user-name');
+  var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
-var setupOpen = document.querySelector('.setup-open');
-var setupClose = document.querySelector('.setup-close');
+  var ESC_KEY = 'Escape';
+  var ENTER_KEY = 'Enter';
 
-var setupForm = document.querySelector('.setup-wizard-form');
+  var nameField = document.querySelector('.setup-user-name');
 
-var onSuccess = function () {
-  window.userDialog.classList.add('hidden');
-};
+  var setupOpen = document.querySelector('.setup-open');
+  var setupClose = document.querySelector('.setup-close');
 
-var onError = function (data) {
-  var node = document.createElement('div');
-  node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
-  node.style.position = 'absolute';
-  node.style.left = 0;
-  node.style.right = 0;
-  node.style.fontSize = '30px';
+  var setupForm = document.querySelector('.setup-wizard-form');
 
-  node.textContent = data;
-  document.body.insertAdjacentElement('afterbegin', node);
-};
+  var onSuccess = function () {
+    window.userDialog.classList.add('hidden');
+  };
 
-var onPopupEscPress = function (evt) {
-  if (evt.key === ESC_KEY && document.activeElement !== nameField) {
-    closePopup();
-  }
-};
+  var onError = function (data) {
+    var node = document.createElement('div');
+    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.fontSize = '30px';
 
-var openPopup = function () {
-  window.userDialog.classList.remove('hidden');
-  document.addEventListener('keydown', onPopupEscPress);
-};
+    node.textContent = data;
+    document.body.insertAdjacentElement('afterbegin', node);
+  };
 
-var closePopup = function () {
-  window.userDialog.classList.add('hidden');
-  document.removeEventListener('keydown', onPopupEscPress);
+  var onPopupEscPress = function (evt) {
+    if (evt.key === ESC_KEY && document.activeElement !== nameField) {
+      closePopup();
+    }
+  };
 
-  window.userDialog.style.left = '';
-  window.userDialog.style.top = '';
-};
+  var openPopup = function () {
+    window.userDialog.classList.remove('hidden');
+    document.addEventListener('keydown', onPopupEscPress);
+  };
 
-setupOpen.addEventListener('click', function () {
-  openPopup();
-});
+  var closePopup = function () {
+    window.userDialog.classList.add('hidden');
+    document.removeEventListener('keydown', onPopupEscPress);
 
-setupOpen.addEventListener('keydown', function (evt) {
-  if (evt.key === ENTER_KEY) {
+    window.userDialog.style.left = '';
+    window.userDialog.style.top = '';
+  };
+
+  setupOpen.addEventListener('click', function () {
     openPopup();
-  }
-});
+  });
 
-setupClose.addEventListener('click', function () {
-  closePopup();
-});
+  setupOpen.addEventListener('keydown', function (evt) {
+    if (evt.key === ENTER_KEY) {
+      openPopup();
+    }
+  });
 
-setupClose.addEventListener('keydown', function (evt) {
-  if (evt.key === ENTER_KEY) {
+  setupClose.addEventListener('click', function () {
     closePopup();
-  }
-});
+  });
 
-setupForm.addEventListener('submit', function (evt) {
-  window.backend.save(new FormData(setupForm), onSuccess, onError);
-  evt.preventDefault();
-});
+  setupClose.addEventListener('keydown', function (evt) {
+    if (evt.key === ENTER_KEY) {
+      closePopup();
+    }
+  });
+
+  setupForm.addEventListener('submit', function (evt) {
+    window.backend.save(new FormData(setupForm), onSuccess, onError);
+    evt.preventDefault();
+  });
+
+  var fileChooser = document.querySelector('.upload input[type=file]');
+  var preview = document.querySelector('.setup-user-pic');
+
+  fileChooser.addEventListener('change', function () {
+    var file = fileChooser.files[0];
+    var fileName = file.name.toLowerCase();
+
+    var matches = FILE_TYPES.some(function (it) {
+      return fileName.endsWith(it);
+    });
+
+    if (matches) {
+      var reader = new FileReader();
+
+      reader.addEventListener('load', function () {
+        preview.src = reader.result;
+      });
+
+      reader.readAsDataURL(file);
+    }
+  });
+
+})();
+
+
